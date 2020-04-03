@@ -13,8 +13,8 @@ export default function Incidents() {
   const [incidents, setIncidents] = useState([]);
   const navigation = useNavigation();
 
-  function navigateToDetail() {
-    navigation.navigate('Detail');
+  function navigateToDetail(incident) {
+    navigation.navigate('Detail', { incident });
   }
 
   async function loadIncidents() {
@@ -47,7 +47,7 @@ export default function Incidents() {
         renderItem={({ item: incident }) => (
           <View style={styles.incident}>
             <Text style={styles.incidentProperty}>ONG:</Text>
-            <Text style={styles.incidentValue}>{ incident.name }</Text>
+            <Text style={styles.incidentValue}>{ incident.name } de { incident.city }/{ incident.uf }</Text>
 
             <Text style={styles.incidentProperty}>CASO:</Text>
             <Text style={styles.incidentValue}>{ incident.title }</Text>
@@ -59,7 +59,7 @@ export default function Incidents() {
 
             <TouchableOpacity 
               style={styles.detailsButton}
-              onPress={navigateToDetail}
+              onPress={() => navigateToDetail(incident) }
             >
               <Text style={styles.detailsButtonText}>Ver mais detalhes</Text>
               <Feather name="arrow-right" size={16} color="#E02041"/>
